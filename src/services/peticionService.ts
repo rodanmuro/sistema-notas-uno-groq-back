@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import OpenAI from "openai";
 import * as fs from "fs";
 import Groq from 'groq-sdk';
 
