@@ -15,12 +15,15 @@ const periodoEntity = fs.readFileSync("src/entity/Periodo.ts");
 const roleEntity = fs.readFileSync("src/entity/Role.ts");
 const usuarioEntity = fs.readFileSync("src/entity/Usuario.ts");
 
+
 const allEntitiesFilesContent = asignaturaEntity + " "
     + calificacionEntity + " "
     + grupoEntity + " "
     + periodoEntity + " "
     + roleEntity + " "
     + usuarioEntity;
+
+
 
 
 export async function peticion(mensaje:string):Promise<string>{
@@ -38,7 +41,7 @@ export async function peticion(mensaje:string):Promise<string>{
                     + " is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors. "
                     + " is important to know that the name of the columns are in camel case, for example usuarioId "
                     + " dont use return line, i mean, the symbol \\n, dont use quoation marks single "
-                    + "dont use Quotation Marks for the name of fields or tables"
+                    + " dont use Quotation Marks for the name of fields or tables "
                 },
                 {
                     role: "user",
