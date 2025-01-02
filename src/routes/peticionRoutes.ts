@@ -17,7 +17,11 @@ router.get("/asignatura", (req: Request, res: Response) => {
     asignaturaController.getAll(req, res);
 })
 
-router.get("/usuario/profesor", (req:Request, res:Response) => {
-  usuarioController.getProfesores(req, res);
+router.get("/usuario/profesor", (req: Request, res: Response) => {
+    usuarioController.getProfesores(req, res);
+})
+
+router.get("/usuario/estudiante", (req: Request, res: Response) => {
+    usuarioController.getEstudiantes(req, res);
 })
 
