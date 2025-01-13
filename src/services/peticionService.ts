@@ -15,18 +15,22 @@ const periodoEntity = fs.readFileSync("src/entity/Periodo.ts");
 const roleEntity = fs.readFileSync("src/entity/Role.ts");
 const usuarioEntity = fs.readFileSync("src/entity/Usuario.ts");
 
+const descriptionAllEntities = fs.readFileSync("src/files/plain-text-db.txt");
 
-const allEntitiesFilesContent = asignaturaEntity + " "
+
+const allEntitiesFilesContent = descriptionAllEntities;
+
+/*asignaturaEntity + " "
     + calificacionEntity + " "
     + grupoEntity + " "
     + periodoEntity + " "
     + roleEntity + " "
-    + usuarioEntity;
+    + usuarioEntity;*/
 
 
 
 
-export async function peticion(mensaje:string):Promise<string>{
+export async function peticion(mensaje: string): Promise<string> {
 
     const response = await cliente.chat.completions.create(
         {
@@ -34,23 +38,29 @@ export async function peticion(mensaje:string):Promise<string>{
             messages: [
                 {
                     role: "system",
-                    content: "these are the entities in typescript using typeorm of system grades " 
-                    + allEntitiesFilesContent
-                    + ". You are an asisstant that creates sql queries, and for every request of the query "
-                    + " you have only return the sql query; "
-                    + " is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors. "
-                    + " is important to know that the name of the columns are in camel case, for example usuarioId "
-                    + " dont use return line, i mean, the symbol \\n, dont use quoation marks single "
-                    + " dont use Quotation Marks for the name of fields or tables "
+                    content: "these are the entities in typescript using typeorm of system grades "
+                        + allEntitiesFilesContent
+                        + ". You are an asisstant that creates sql queries, and for every request of the query "
+                        + " you have only return the sql query; "
+                        + " is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors. "
+                        + " is important to know that the name of the columns are in camel case, for example usuarioId "
+                        + " dont use return line, i mean, the symbol \\n, dont use quoation marks single "
+                        + " dont use Quotation Marks for the name of fields or tables "
+                        + " dont forget the correct syntax of queries "
+                        + " dont forget the value after the name of a field goes with goes with quotation marks, according good syntax of queries "
+                        + " reminds a subject is failed when its value is less than 70 "
                 },
                 {
                     role: "user",
-                    content: mensaje 
-                    + ". Is important only return the sql query. "
-                    + " Is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors" 
-                    + " is important to know that the name of the columns are in camel case, for example usuarioId "
-                    + " dont use return line, i mean, the symbol \\n, dont use single quoation marks "
-                    + "dont use Quotation Marks for the name of fields or tables"
+                    content: mensaje
+                        + ". Is important only return the sql query. "
+                        + " Is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors"
+                        + " is important to know that the name of the columns are in camel case, for example usuarioId "
+                        + " dont use return line, i mean, the symbol \\n, dont use single quoation marks "
+                        + " dont use Quotation Marks for the name of fields or tables "
+                        + " dont forget the correct syntax of queries "
+                        + " dont forget the value after the name of a field goes with goes with quotation marks, according good syntax of queries "
+                        + " reminds a subject is failed when its value is less than 70 "
                 }
             ]
         }
