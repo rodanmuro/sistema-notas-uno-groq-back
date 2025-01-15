@@ -1,12 +1,23 @@
 import 'dotenv/config';
 import * as fs from "fs";
 import Groq from 'groq-sdk';
+import OpenAI from 'openai';
 
 const cliente = new Groq(
     {
         apiKey: process.env.GROQ_API_KEY
     }
 );
+
+
+/*
+const cliente = new OpenAI(
+    {
+        apiKey: process.env.OPENAI_API_KEY
+    }
+);
+*/
+
 
 const asignaturaEntity = fs.readFileSync("src/entity/Asignatura.ts");
 const calificacionEntity = fs.readFileSync("src/entity/Calificacion.ts");
@@ -27,14 +38,12 @@ const allEntitiesFilesContent = descriptionAllEntities;
     + roleEntity + " "
     + usuarioEntity;*/
 
-
-
-
 export async function peticion(mensaje: string): Promise<string> {
 
     const response = await cliente.chat.completions.create(
         {
-            model: "llama3-70b-8192",
+            model: "llama-3.3-70b-versatile",
+            //model:"gpt-4-0125-preview",
             messages: [
                 {
                     role: "system",
