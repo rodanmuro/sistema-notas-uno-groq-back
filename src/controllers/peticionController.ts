@@ -8,26 +8,39 @@ export class PeticionController {
     const prompt: string = req.query.prompt as string;
     const response = await peticion(prompt);
 
+    const jsonResponse = JSON.parse(response)
+
     try {
       // Execute the query and get the result
-      const queryResult = await AppDataSource.query(normalizarQuery(response));
+      if (jsonResponse.sql) {
 
-      // Iterate over each row in the result
-      queryResult.forEach((row) => {
-        console.log("Row:", row);
-        // Process each row as needed
-      });
+        const queryResult = await AppDataSource.query(normalizarQuery(jsonResponse.sql));
 
-      // Alternatively, use map to transform rows if needed
-      const transformedResult = queryResult.map((row) => ({
-        ...row,
-        processedField: row.someField ? row.someField.toUpperCase() : null,
-      }));
+        // Iterate over each row in the result
+        queryResult.forEach((row) => {
+          console.log("Row:", row);
+          // Process each row as needed
+        });
 
-      console.log("Transformed Result:", transformedResult);
+        // Alternatively, use map to transform rows if needed
+        const transformedResult = queryResult.map((row) => ({
+          ...row,
+          processedField: row.someField ? row.someField.toUpperCase() : null,
+        }));
 
-      // Send the result back in the response
-      res.json(queryResult); // Or res.json(transformedResult) if transformed
+        console.log("Transformed Result:", transformedResult);
+
+        // Send the result back in the response
+        res.json(queryResult); // Or res.json(transformedResult) if transformed
+
+      }
+
+      if (jsonResponse.error) {
+        const jsonParse = JSON.parse(response);
+        const responseArray = [jsonParse];
+        res.json(responseArray);
+      }
+
     } catch (error) {
       console.error("Error executing query:", error);
       res.status(500).json({ message: "Error executing query", error });

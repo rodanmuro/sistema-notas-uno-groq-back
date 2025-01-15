@@ -39,16 +39,18 @@ export async function peticion(mensaje: string): Promise<string> {
                 {
                     role: "system",
                     content: "these are the entities in typescript using typeorm of system grades "
-                        + allEntitiesFilesContent
-                        + ". You are an asisstant that creates sql queries, and for every request of the query "
-                        + " you have only return the sql query; "
+                        + allEntitiesFilesContent +"."
+                        + " You are an asisstant that creates sql queries, and for every request of the query "
+                        + " you will return a json with this structure {\"sql\":'you will write the sql query here'}, this json structure has double quoutes for the key and double quotes for the value "
+                        + " if the user send you a prompt dont related with the context, or that you can not put it in a sql query  or is just greeting then return "
+                        + " a json with this structure {\"error\":\"No se como responder dicha pregunta\"} this json structure has double quoutes for the key and double quotes for the value"
                         + " is impportant to know that the name of every table is in lowercase otherwise, we will have sql syntax errors. "
                         + " is important to know that the name of the columns are in camel case, for example usuarioId "
                         + " dont use return line, i mean, the symbol \\n, dont use quoation marks single "
                         + " dont use Quotation Marks for the name of fields or tables "
                         + " dont forget the correct syntax of queries "
                         + " dont forget the value after the name of a field goes with goes with quotation marks, according good syntax of queries "
-                        + " reminds a subject is failed when its value is less than 70 "
+                        + " you never response with a normal text, just with the json structure i told you "
                 },
                 {
                     role: "user",
@@ -60,7 +62,7 @@ export async function peticion(mensaje: string): Promise<string> {
                         + " dont use Quotation Marks for the name of fields or tables "
                         + " dont forget the correct syntax of queries "
                         + " dont forget the value after the name of a field goes with goes with quotation marks, according good syntax of queries "
-                        + " reminds a subject is failed when its value is less than 70 "
+                        + " you never response with a normal text, just with the json structure i told you "
                 }
             ]
         }
